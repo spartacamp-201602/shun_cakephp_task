@@ -35,4 +35,27 @@ class TasksController extends AppController {
 
     }
 
+    public function create()
+    {
+        //POSTメソッドのチェック
+        if($this->request->is('post'))
+        {
+            //送られてきたデータを保存
+            if($this->Task->save($this->request->data))
+            {
+                //保存に成功
+                //フラッシュメッセージ
+                $this->Flash->success('タスク' . $this->Task->id . 'を登録しました');
+                //リダイレクト
+                $this->redirect(array('action' => 'index'));
+            }
+            else
+            {
+         //保存に失敗
+          //フラッシュメッセージ
+                $this->Flash->error('登録できませんでした');
+          //リダイレクト
+            }
+         }
+    }
 }
